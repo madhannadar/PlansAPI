@@ -1,0 +1,283 @@
+<div ng-include="'common/dashboard-header.html'"></div>
+
+<section class="dashboard-body">
+    <div class="container-fluid">
+        <div class="row" ng-controller="planDashboardController">
+            <div class="col-md-1 dashboard-nav-block mobile-hidden">
+                <div class="dashboard-navigation">
+                    <a href="#!/" class="logo"><img src="assets/img/logo.svg" alt=""></a>
+                    <div class="tabs dashboard-menu mobile-hidden">
+                        <ul class="buttons">
+                            <li ng-class="{active: tabsDashboard.isActiveTab(tab.id)}" ng-repeat="tab in tabs" class="menu-link"><a href="#!/{{tab.id}}"><img src="{{tab.url}}" alt=""><span>{{tab.label}}</span></a></li>
+                            <!-- <li ng-class="{active:tab.isSet(1)}" class="menu-link"><a href ng-click="tab.setTab(1)"><img src="assets/img/icons/dashboard-left-planning.svg" alt=""><span>Start a plan</span></a></li>
+                            <li ng-class="{active:tab.isSet(2)}" class="menu-link"><a href ng-click="tab.setTab(2)"><img src="assets/img/icons/dashboard-left-meeting.svg" alt=""><span>Meeting</span></a></li>
+                            <li ng-class="{active:tab.isSet(3)}" class="menu-link"><a href ng-click="tab.setTab(3)"><img src="assets/img/icons/dashboard-left-invoice.svg" alt=""><span>Invoice</span></a></li>
+                            <li ng-class="{active:tab.isSet(4)}" class="menu-link"><a href ng-click="tab.setTab(4)"><img src="assets/img/icons/dashboard-left-documents.svg" alt=""><span>Documents</span></a></li> -->
+                        </ul>
+                    </div>
+                    
+                    <div ng-include="'common/dashboard-chat.html'"></div>
+                </div>
+            </div>
+
+            <div ng-include="'common/dashboard-mobile-chat.html'"></div>
+
+            <div class="col-md-12 desktop-hidden">
+                <div class="tabs dashboard-menu">
+                    <ul class="buttons">
+                         <li ng-class="{active: tabsDashboard.isActiveTab(tab.id)}" ng-repeat="tab in tabs" class="menu-link"><a href="#!/{{tab.id}}"><img src="{{tab.url}}" alt=""><span>{{tab.label}}</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-11 pb-5 pt-5 dashboard-block">
+                <div ng-controller="StoreController"> 
+                    <div class="offers-block" id="view-offers">
+                        <div class="card-header">
+                            <h3 class="color-blue">Offers</h3>
+                            <a href="" ng-click="removeClassFromId('view-offers')" class="close-btn">&times;</a>
+                        </div>
+                        <div class="offers-card-wrapper">
+                            <div class="card-container">
+                                <div class="card-block pink">
+                                    <h2>20% OFF</h2>
+                                    <div class="card-content">
+                                        <p>on these selected products.</p>
+                                        <button type="button" value="Apply" class="default-btn apply-btn pink" id="invalidOffer">Apply</button>
+                                    </div>
+                                </div>
+                                <div class="card-block green">
+                                    <h2>10% OFF</h2>
+                                    <div class="card-content">
+                                        <p>10% OFF on a minimum purchase of ₹5,000.</p>
+                                        <button type="button" value="Apply" id="applyOffer" class="default-btn apply-btn green">Apply</button>
+                                    </div>
+                                </div>
+                                <div class="card-block blue">
+                                    <h2>20% OFF</h2>
+                                    <div class="card-content">
+                                        <p>on these selected products.</p>
+                                        <button type="button" value="Apply" id="applyOffer" class="default-btn apply-btn blue">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row planing-section pt-5">
+                    <!-- <div class="col-md-12 text-center">
+                        <a href="#!/dashboard-ongoing-plan" class="default-btn white green-outline mt-2">My Plan</a>
+                    </div> -->
+                    <div class="col-md-7">
+                        <div class="plan-block">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3 class="color-blue">Choose your plan</h3>
+                                <a href="" ng-click="addClassToId('view-offers')" class="link-with-border pink">View Offers</a>
+                            </div>
+                            <ul class="offers-list" >
+                                <li class="white-container" ng-repeat="plan in plans">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-1 desktop-hidden">
+                                            <a href="" class="info" ng-click="addClassToId('informationPopup')"><img src="assets/img/icons/information.svg" alt=""></a>
+                                        </div>
+                                        <div class="col-md-4 col-6 plan-block">
+                                            <h4 class="m-0 plan-name">{{plan.name}}</h4>
+                                        </div>
+                                        <div class="col-md-1 col-12 mobile-hidden">
+                                            <a href="" class="info" ng-click="addClassToId('informationPopup')"><img src="assets/img/icons/information.svg" alt=""></a>
+                                        </div>
+                                        <div class="col-md-4 col-5">
+                                            <h4 class="color-blue m-0"><span>{{plan.price | currency:"₹"}}</span></h4>
+                                        </div>
+                                        <div class="col-md-3 col-7">
+                                            <button type="button" class="outline-btn green-btn" ng-click="addItemToCartPlan(plan)" >Add to cart</button>
+                                        </div>
+                                      
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="product-block mt-5">
+                            <h3 class="color-blue">Choose your product</h3>
+                            <ul class="offers-list">
+                                <li class="white-container single-line-card" ng-repeat="product in products">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-1 desktop-hidden">
+                                            <a href="" class="info" ng-click="addClassToId('informationPopup')"><img src="assets/img/icons/information.svg" alt=""></a>
+                                        </div>
+                                        <div class="col-md-4 col-7 plan-block">
+                                            <h4 class="m-0">{{product.name}}  </h4>
+                                        </div>
+                                        <div class="col-md-1 col-12 mobile-hidden">
+                                            <a href="" class="info" ng-click="addClassToId('informationPopup')"><img src="assets/img/icons/information.svg" alt=""></a>
+                                        </div>
+                                        <div class="col-md-4 col-5">
+                                            <h4 class="color-blue m-0"><span>{{product.price | currency:"₹"}}</span></h4>
+                                        </div>
+                                        <div class="col-md-3  col-7">
+                                            <button type="button" class="outline-btn green-btn" ng-click="addItemToCart(product)">Add to cart</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 offset-md-1 cart-summary-block">
+                        <div class="pink-block cart-block">
+                            <h3 class="text-center color-blue">Cart Summary</h3>
+                            <div class="summary-block">
+                                <h4 class="cart-title">Plan</h4>
+                                <div class="row summary-row" id="financialPlanning" ng-repeat="c in plancart">
+                                    <div class="col">
+                                        <p>{{c.name}}</p>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="amount"><span>{{c.price*c.count | currency: "₹"}}</span><h4p>
+                                    </div>
+                                    <div class="col-md-2 col-2">
+                                        <a href="" class="delete"  ng-click="removeItemCartPlan(c)"><img src="assets/img/icons/delete.svg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="row summary-row" id="taxPlanning">
+                                    <div class="col">
+                                        <p>Tax planning</p>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="amount"><span>₹ 5,000</span>-<span>₹ 10,000</span><h4p>
+                                    </div>
+                                    <div class="col-md-2 col-2">
+                                        <a href="" class="delete" ><img src="assets/img/icons/delete.svg" alt=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="summary-block">
+                                <h4 class="cart-title">Product</h4>
+                                <div class="row summary-row" id="itr"  ng-repeat="c in cart">
+                                    <div class="col">
+                                        <p>{{c.name}}</p>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="amount"><span>{{c.price*c.count | currency: "₹"}}</span></h4>
+                                    </div>
+                                    <div class="col-md-2 col-2">
+                                        <a class="delete" ng-click="removeItemCart(c)"><img src="assets/img/icons/delete.svg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="row summary-row" id="noticeGST">
+                                    <div class="col">
+                                        <p>Notice GST</p>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="amount"><span>₹ 2,000</span>-<span>₹ 8,000</span></h4>
+                                    </div>
+                                    <div class="col-md-2 col-2">
+                                        <a href="" class="delete" ng-click="deleteCard('noticeGST')"><img src="assets/img/icons/delete.svg" alt=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="summary-block subtotal-block">
+                                <div class="row summary-row">
+                                    <div class="col-md-5 col-5">
+                                        <h4>Subtotal</h4>
+                                    </div>
+                                    <div class="col col-7">
+                                        <h4 class="amount"><span>₹ 14,000</span>-<span>₹ 36,000</span></h4>
+                                    </div>
+                                </div>
+                                <div class="row summary-row" id="offerApplied" style="display: none;">
+                                    <div class="col-md-5 col-5">
+                                        <h4>Offer applied</h4>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="offer-applied">- 20% discount</h4>
+                                    </div>
+                                     <div class="col-md-2 col-2">
+                                        <a href="" class="delete" ng-click="deleteCard('offerApplied')"><img src="assets/img/icons/delete.svg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="row summary-row" id="offerNotApplied" style="display: none;">
+                                    <div class="col-md-5 col-5">
+                                        <h4>Offer applied</h4>
+                                    </div>
+                                    <div class="col pr-0">
+                                        <h4 class="offer-not-applied color-red">Coupon code invalid!</h4>
+                                    </div>
+                                     <div class="col-md-2 col-2">
+                                        <a href="" class="delete" ng-click="deleteCard('offerNotApplied')"><img src="assets/img/icons/delete.svg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="row summary-row total-amount">
+                                    <div class="col-md-5 col-5">
+                                        <h3 class="color-pink">Total</h3>
+                                    </div>
+                                    <div class="col col-7">
+                                        <h3 class="color-pink"><span>{{total | currency:"₹"}}</span></h3>
+                                    </div>
+                                </div>
+                                <div class="btn-container text-center">
+                                    <button type="submit" value="Start my plan" class="default-btn start-plan-btn">Start my plan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div ng-include="'common/footer.html'"></div>
+
+<!-- Loader -->
+
+<div class="loader-container dashboard-loader">
+    <div class="loader" id="loader-6">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+
+<script>
+     $('.start-plan-btn').on('click',function(){
+        $('.loader-container').addClass('active');
+     });
+</script>
+
+<section class="popup" id="informationPopup">
+    <div class="popup-container">
+        <div class="popup-wrapper text-left">
+            <div class="header-box d-flex popup-header">
+                <a ng-click="removeClassFromId('informationPopup')" class="popup-closebtn">×</a>
+            </div>
+            <div class="popup-body text-center">
+                <h2 class="page-header color-blue">Financial Planning</h2>
+                <p class="text-left">em Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummyem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="popup-video">
+                            <div class="video-cover">
+                                <div class="video-slider-content video">
+                                    <img src="assets/img/testimonial-1.png" alt="" class="client-img">
+                                    <div class="video-play-icon">
+                                        <a href="" class="work-show" data-id="7S_Og1YZEJo" data-video-type="YouTube" data-video-url="https://www.youtube.com/watch?v=7S_Og1YZEJo?loop=1&amp;rel=0&amp;autoplay=1&amp;showinfo=0" tabindex="0">
+                                            <span></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-container table-btn">
+                    <a href="" download="" class="default-btn"><img src="assets/img/icons/download-white.svg">Download Reports</a>
+                    <button type="button" class="outline-btn green-btn" >Add to cart</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

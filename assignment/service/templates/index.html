@@ -8,93 +8,83 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"> </script> 
 <body ng-app="myApp">
 
-<div  >
-<!-- <form name="myForm" ng-controller="personCtrl"  ng-submit="submitPlans()">
-    Plan Name: <input type="text" name="planName" ng-minlength="3" ng-model="Plans.planName" required>    
-    <span ng-show="myForm.planName.$touched && myForm.planName.$error.required">Plan name  is required.</span>
-    <span ng-show="myForm.planName.$touched && myForm.planName.$error.minlength">Atleast 3 character.</span>
-    <br><br>
-    Plan Description:<textarea name="planDesc" ng-minlength="3" ng-model="Plans.planDesc" required></textarea>
-    <span ng-show="myForm.planDesc.$touched && myForm.planDesc.$error.required">Plan Description  is required.</span>
-    <span ng-show="myForm.planDesc.$touched && myForm.planDesc.$error.minlength">Atleast 3 character.</span>
-    <br><br>
-    Plan Amount<input type="number" name="planAmount" ng-model="Plans.planAmount" required>
-    <span ng-show="myForm.planAmount.$touched && myForm.planAmount.$error.required">Required.</span>
-    <br><br>
-    Plan Icon: <input type="text" name="planIcon" ng-minlength="3" ng-model="Plans.planIcon" required>    
-    <span ng-show="myForm.planIcon.$touched && myForm.planIcon.$error.required">Required</span>
-    <br><br>    
-    <label for="singleSelect"> Plan Type : </label>
-    <select name="planTypeSelect" name="planType" id="singleSelect" ng-model="data.singleSelect" required>
-        <option ng-repeat="option in planTypeOption" value="{{option.id}}">{{option.name}}</option>
-    </select>
-    <span ng-show="myForm.planType.$touched && myForm.planType.$error.required">Required</span>
-    <br><br>
-    <label for="planService"> Plan Service : </label> 
-    <input type="number" name="planServiceId" ng-model="Plans.planServiceId" required>
-    <span ng-show="myForm.planServiceId.$touched && myForm.planServiceId.$error.required">Required.</span>
-    <br><br>        
-    <label for="planService"> Plan Service : </label> 
-    <input type="number" name="planServiceId" ng-model="Plans.planServiceId" required>
-    <span ng-show="myForm.planServiceId.$touched && myForm.planServiceId.$error.required">Required.</span>
-    <br><br>        
-    <label for="planService"> Plan GST Amount: </label> 
-    <input type="number" name="planGST" ng-model="Plans.planGST" required>
-    <span ng-show="myForm.planGST.$touched && myForm.planGST.$error.required">Required.</span>
-    <br><br>                
-    <label for="planService"> Plan Video: </label> 
-    <input type = "file" name="planVideo" file-model = "myFile"/>
-    <br><br>                
-    <label for="planService"> Plan Sample Report: </label> 
-    <input type = "file" name="planSampleReport" file-model = "myFile"/>
-    <br><br>
-    <code>myForm.planType.$error = {{myForm.planType.$error}}</code><br/>
-    <input type="submit">
-</form>
-</div> -->
-<div ng-controller="getPlans" onload="">
-    <h1>Plans : </h1>
-    <ul ng-init="getPlans()" ng-model="result">
-        <!-- {{result}} -->
-    </ul>
-    <table class="table table-bordered"  >
-        <thead>
+
+    <div>
+        <a href="#!internships">Courses@geeksforgeeks</a> 
+        <br> 
+        <a href="#!getPlans">Check Plans</a> 
+        <div ng-view></div> 
+    </div>
 
 
-        </thead>
-        <tbody>
-        <td>Plan Name</td>
-        <td>Plan GST Amount</td>
-        <td>Plan Amount</td>
-        <td>Plan Added</td>
-        <td>Plan Type</td>
-        <tr ng-repeat="x in result">
-            
-            <td>{{x.plan_name}}</td>
-            <td>{{x.plan_gst_amount}}</td>
-            <td>{{x.plan_amount}}</td>
-            <td>{{x.plan_added}}</td>
-            <td>{{x.plan_type}}</td>            
-            <!-- <td>{{x.Country}}</td> -->
-        </tr>
-        </tbody>
+    <script>
+        const app = angular.module("myApp", ["ngRoute"]); 
+        app.config(function($routeProvider) { 
+            $routeProvider 
+            .when("/getPlans", { 
+                // templateUrl : "templates/getPlans.html",
+                template : `<div  ng-init="getPlans()"  >
+                                <h1>Plans : </h1>   
+                                <table  ng-show="result" class="table table-bordered"  >
+                                    <tbody>
+                                    <td>Plan Name</td>
+                                    <td>Plan GST Amount</td>
+                                    <td>Plan Amount</td>
+                                    <td>Plan Added</td>
+                                    <td>Plan Type</td>
+                                    <tr ng-repeat="x in result">
+                                        
+                                        <td>{{x.plan_name}}</td>
+                                        <td>{{x.plan_gst_amount}}</td>
+                                        <td>{{x.plan_amount}}</td>
+                                        <td>{{x.plan_added}}</td>
+                                        <td>{{x.plan_type}}</td>            
+                                    </tr>
+                                    </tbody>
 
-    </table>
-</div>
-<!-- <script>
-    var app = angular.module('myApp', []);
-    app.controller('personCtrl', function($scope) {
-        $scope.firstName = "John";
-        $scope.lastName = "Doe";
-        $scope.fullName = function() {
-            return $scope.firstName + " " + $scope.lastName;
-        };
-    }); -->
-    <!-- </script> -->
-<script src="controller.js"></script>
-
+                                </table>
+                                <p ng-show="errorResult">Something went wrong</p>
+                            </div>`, 
+                controller : "getPlans"
+            }) 
+            .when("/internships", { 
+                templateUrl : "getPlans.html",
+                template : `<h1>Hire With Us</h1> 
+                            <p> 
+                                <ul> 
+                                <li>Software Developer</li> 
+                                <li>Technical Content Writer</li> 
+                                <li>Technical Content Engineer</li> 
+                                </ul> 
+                            </p>` 
+            }); 
+        }); 
+    </script> 
+    <!-- <script src="controller.js"></script> -->
+    <script>
+        app.controller('getPlans',function($scope,$http) {
+        $scope.getPlans = function(){
+            var auth = window.btoa("madhan:madhan")
+            headers = {"Authorization": "Basic " + auth};
+            // console.log("submit clicket",$scope.Plans.planName)
+            $http({
+                method : "GET",
+                url : "http://127.0.0.1:8000/api/plans/",
+                headers:headers
+                }).then(function mySuccess(response) {
+                $scope.result = response.data;
+                console.log($scope.result)
+                }, function myError(response) {
+                $scope.errorResult = response.data
+                $scope.result = null  
+                console.log($scope.result)
+            });
+        }
+        })
+    </script>
 </body>
 </html>

@@ -1,0 +1,26 @@
+
+
+<div >
+    <h1>Plans : </h1>   
+    <ul ng-model="result">x
+    <table  ng-show="result" class="table table-bordered"  >
+        <tbody>
+        <td>Plan Name</td>
+        <td>Plan GST Amount</td>
+        <td>Plan Amount</td>
+        <td>Plan Added</td>
+        <td>Plan Type</td>
+        <tr ng-repeat="x in result">
+            
+            <td>{{x.plan_name}}</td>
+            <td>{{x.plan_gst_amount}}</td>
+            <td>{{x.plan_amount}}</td>
+            <td>{{x.plan_added}}</td>
+            <td>{{x.plan_type}}</td>            
+            <td>{{x.Country}}</td>
+        </tr>
+        </tbody>
+
+    </table>
+    <p ng-show="errorResult">Something went wrong</p>
+</div>

@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"> </script> 
+<body ng-app="myApp">
+    <div >
+        <form name="myForm" ng-controller="addPlans"  ng-submit="submitPlans()">
+            Plan Name: <input type="text" name="planName" ng-minlength="3" ng-model="Plans.planName" required>    
+            <span ng-show="myForm.planName.$touched && myForm.planName.$error.required">Plan name  is required.</span>
+            <span ng-show="myForm.planName.$touched && myForm.planName.$error.minlength">Atleast 3 character.</span>
+            <br><br>
+            Plan Description:<textarea name="planDesc" ng-minlength="3" ng-model="Plans.planDesc" required></textarea>
+            <span ng-show="myForm.planDesc.$touched && myForm.planDesc.$error.required">Plan Description  is required.</span>
+            <span ng-show="myForm.planDesc.$touched && myForm.planDesc.$error.minlength">Atleast 3 character.</span>
+            <br><br>
+            Plan Amount<input type="number" name="planAmount" ng-model="Plans.planAmount" required>
+            <span ng-show="myForm.planAmount.$touched && myForm.planAmount.$error.required">Required.</span>
+            <br><br>
+            Plan Icon: <input type="text" name="planIcon" ng-minlength="3" ng-model="Plans.planIcon" required>    
+            <span ng-show="myForm.planIcon.$touched && myForm.planIcon.$error.required">Required</span>
+            <br><br>    
+            <label for="singleSelect"> Plan Type : </label>
+            <select name="planTypeSelect" name="planType" id="singleSelect" ng-model="Plans.planType" required>
+                <option ng-repeat="option in planTypeOption" value="{{option.id}}">{{option.name}}</option>
+            </select>
+            <span ng-show="myForm.planType.$touched && myForm.planType.$error.required">Required</span>
+            <br><br>
+            <label for="planService"> Plan Service : </label> 
+            <input type="number" name="planServiceId" ng-model="Plans.planServiceId" required>
+            <span ng-show="myForm.planServiceId.$touched && myForm.planServiceId.$error.required">Required.</span>
+            <br><br>        
+            <label for="planGST"> Plan GST Amount: </label> 
+            <input type="number" name="planGST" ng-model="Plans.planGST" required>
+            <span ng-show="myForm.planGST.$touched && myForm.planGST.$error.required">Required.</span>
+            <br><br>                
+            <label for="planService"> Plan Video: </label> 
+            <input type = "file" name="planVideo" file-model = "myFile"/>
+            <br><br>                
+            <label for="planService"> Plan Sample Report: </label> 
+            <input type = "file" name="planSampleReport" file-model = "myFile"/>
+            <br><br>
+            <label for="planOriginalPrice"> Plan Original Price: </label> 
+            <input type="number" name="planOriginalPrice" ng-model="Plans.planOriginalPrice" required>
+            <span ng-show="myForm.planOriginalPrice.$touched && myForm.plan_original_price.$error.required">Required.</span>
+            <br><br>                    
+            <label><input type="radio" ng-model="color.name" value="1">Active</label>
+            <label><input type="radio" ng-model="color.name" ng-value="planIsActive">Inactive</label>
+            <code>myForm.planType.$error = {{myForm.planType.$error}}</code><br/>
+            <input type="submit">
+        </form>
+    </div>
+    <script src="planController.js"></script>
+</body>
+
