@@ -29,7 +29,7 @@ var app = angular.module('myApp', []);
 
 app.controller('getPlans',function($scope,$http) {
   $scope.getPlans = function(){
-      var auth = window.btoa("madhan:madhan")
+      var auth = window.btoa("madhan@gmai.com:madhan")
       headers = {"Authorization": "Basic " + auth};
       // console.log("submit clicket",$scope.Plans.planName)
       $scope.temp = "madnhan"
@@ -42,8 +42,8 @@ app.controller('getPlans',function($scope,$http) {
           console.log($scope.result)
         }, function myError(response) {
           $scope.errorResult = response.data
-          $scope.result = null  
-          console.log($scope.result)
+          // $scope.result = null  
+          console.log("erro",response.data)
       });
   }
 })

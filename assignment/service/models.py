@@ -155,3 +155,21 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class Testusers(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    email = models.CharField(db_column='EMAIL', max_length=255)  # Field name made lowercase.
+    username = models.CharField(db_column='USERNAME', max_length=255)  # Field name made lowercase.
+    password = models.CharField(db_column='PASSWORD', max_length=255)  # Field name made lowercase.
+    mobile = models.CharField(db_column='MOBILE', max_length=255)  # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'TESTUSERS'
+
+class LoggedInUser(models.Model):
+    user = models.OneToOneField(Testusers, related_name='logged_in_user',on_delete=models.CASCADE)
+    # Session keys are 32 characters long
+    session_key = models.CharField(max_length=32, null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username

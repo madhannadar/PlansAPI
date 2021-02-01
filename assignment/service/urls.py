@@ -10,7 +10,11 @@ router = DefaultRouter()
 
 router.register(r'plans', views.PlansViewSet)
 router.register(r'createuser',views.CustomUserViewSet)
+# router.register(r'genericplans',views.Plans.getplans)
 urlpatterns = [
     path('', include(router.urls)),
-    # url('view', TemplateView.as_view(template_name="index.html"), name="home")
+    path('login',views.userlogin),
+    path('logout',views.userlogout),
+    url('genericplans',views.PlansView.getplans)
+    # url('view', TemplateView.as_view(template_name="plan.html"), name="home")
 ]

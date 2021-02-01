@@ -1,8 +1,12 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <div ng-include="'common/dashboard-header.html'"></div>
-
-<section class="dashboard-body">
+<!-- <script src="planController.js"></script> -->
+<!-- <div ng-app="myApp" ng-controller="StoreController">
+    <P>{{temp}}madhan</P>
+</div> -->
+<section ng-app="myApp" class="dashboard-body">
     <div class="container-fluid">
-        <div class="row" ng-controller="planDashboardController">
+        <div class="row" >
             <div class="col-md-1 dashboard-nav-block mobile-hidden">
                 <div class="dashboard-navigation">
                     <a href="#!/" class="logo"><img src="assets/img/logo.svg" alt=""></a>
@@ -14,8 +18,7 @@
                             <li ng-class="{active:tab.isSet(3)}" class="menu-link"><a href ng-click="tab.setTab(3)"><img src="assets/img/icons/dashboard-left-invoice.svg" alt=""><span>Invoice</span></a></li>
                             <li ng-class="{active:tab.isSet(4)}" class="menu-link"><a href ng-click="tab.setTab(4)"><img src="assets/img/icons/dashboard-left-documents.svg" alt=""><span>Documents</span></a></li> -->
                         </ul>
-                    </div>
-                    
+                    </div>                    
                     <div ng-include="'common/dashboard-chat.html'"></div>
                 </div>
             </div>
@@ -31,7 +34,7 @@
             </div>
 
             <div class="col-md-11 pb-5 pt-5 dashboard-block">
-                <div ng-controller="StoreController"> 
+                <div ng-controller="StoreController" ng-init="getPlans()"> 
                     <div class="offers-block" id="view-offers">
                         <div class="card-header">
                             <h3 class="color-blue">Offers</h3>
@@ -67,7 +70,7 @@
                     <!-- <div class="col-md-12 text-center">
                         <a href="#!/dashboard-ongoing-plan" class="default-btn white green-outline mt-2">My Plan</a>
                     </div> -->
-                    <div class="col-md-7">
+                    <div class="col-md-7" ng-if="flag==true">
                         <div class="plan-block">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3 class="color-blue">Choose your plan</h3>
@@ -80,13 +83,13 @@
                                             <a href="" class="info" ng-click="addClassToId('informationPopup')"><img src="assets/img/icons/information.svg" alt=""></a>
                                         </div>
                                         <div class="col-md-4 col-6 plan-block">
-                                            <h4 class="m-0 plan-name">{{plan.name}}</h4>
+                                            <h4 class="m-0 plan-name">{{plan.plan_name}}</h4>
                                         </div>
                                         <div class="col-md-1 col-12 mobile-hidden">
                                             <a href="" class="info" ng-click="addClassToId('informationPopup')"><img src="assets/img/icons/information.svg" alt=""></a>
                                         </div>
                                         <div class="col-md-4 col-5">
-                                            <h4 class="color-blue m-0"><span>{{plan.price | currency:"₹"}}</span></h4>
+                                            <h4 class="color-blue m-0"><span>{{plan.plan_original_price | currency:"₹"}}</span></h4>
                                         </div>
                                         <div class="col-md-3 col-7">
                                             <button type="button" class="outline-btn green-btn" ng-click="addItemToCartPlan(plan)" >Add to cart</button>
@@ -95,7 +98,8 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div >
+                    
                         <div class="product-block mt-5">
                             <h3 class="color-blue">Choose your product</h3>
                             <ul class="offers-list">
@@ -121,6 +125,7 @@
                             </ul>
                         </div>
                     </div>
+                    <h1 ng-if="flag==false">Oops!Somthing went wrong</h1>
                     <div class="col-md-4 offset-md-1 cart-summary-block">
                         <div class="pink-block cart-block">
                             <h3 class="text-center color-blue">Cart Summary</h3>
@@ -225,59 +230,4 @@
         </div>
     </div>
 </section>
-
-
-<div ng-include="'common/footer.html'"></div>
-
-<!-- Loader -->
-
-<div class="loader-container dashboard-loader">
-    <div class="loader" id="loader-6">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</div>
-
-
-<script>
-     $('.start-plan-btn').on('click',function(){
-        $('.loader-container').addClass('active');
-     });
-</script>
-
-<section class="popup" id="informationPopup">
-    <div class="popup-container">
-        <div class="popup-wrapper text-left">
-            <div class="header-box d-flex popup-header">
-                <a ng-click="removeClassFromId('informationPopup')" class="popup-closebtn">×</a>
-            </div>
-            <div class="popup-body text-center">
-                <h2 class="page-header color-blue">Financial Planning</h2>
-                <p class="text-left">em Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummyem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="popup-video">
-                            <div class="video-cover">
-                                <div class="video-slider-content video">
-                                    <img src="assets/img/testimonial-1.png" alt="" class="client-img">
-                                    <div class="video-play-icon">
-                                        <a href="" class="work-show" data-id="7S_Og1YZEJo" data-video-type="YouTube" data-video-url="https://www.youtube.com/watch?v=7S_Og1YZEJo?loop=1&amp;rel=0&amp;autoplay=1&amp;showinfo=0" tabindex="0">
-                                            <span></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="btn-container table-btn">
-                    <a href="" download="" class="default-btn"><img src="assets/img/icons/download-white.svg">Download Reports</a>
-                    <button type="button" class="outline-btn green-btn" >Add to cart</button>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</section>
+<script src="planController.js"></script>
